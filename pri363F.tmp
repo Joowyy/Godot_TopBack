@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn4gro544imka"]
+
+[ext_resource type="Script" path="res://deTodo.gd" id="1_u1rt1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ftdi7"]
+font_size = 50
+
+[node name="Label" type="Label"]
+offset_left = 407.0
+offset_top = 254.0
+offset_right = 741.0
+offset_bottom = 396.0
+text = "Hola gente!"
+label_settings = SubResource("LabelSettings_ftdi7")
+script = ExtResource("1_u1rt1")
