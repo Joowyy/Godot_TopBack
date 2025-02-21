@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var velocidad:int = 100
+var velocidad:int = 500
 var direccionX = null
 var direccionY = null
 
