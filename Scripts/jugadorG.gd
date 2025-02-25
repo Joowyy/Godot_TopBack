@@ -3,14 +3,13 @@ extends CharacterBody2D
 # Accedemos a la ruta del padre de Label, en este caso Node2D.
 # Cada "../" es una carpeta hacia atras. Luego indicamos el nombre.
 @onready var label:Label = $"../../Label"
-@onready var spikes:StaticBody2D = $"../../Spikes_01"
 
 # Velocidad y salto del personaje
-const SPEED:float = 200.0
+const SPEED:float = 300.0
 const JUMP_VELOCITY:float = -300.0
 
 # Agregamos la velocidad en nuestro personaje
-var gravedad:float = 980.0
+var gravedad:float = 0.0
 var coins:int = 0
 var vida:int = 10
 
@@ -29,12 +28,14 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Si la tecla "derecha, izquierda" es presionada, aplica la siguiente velocidad.
-	# Move_toward dice, si no estas presionando nada, quedate estático.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
+	# Movimiento del personaje
+	var directionY := Input.get_axis("ui_up", "ui_down")
+	var directionX := Input.get_axis("ui_left", "ui_right")
+	if directionY or directionX:
+		velocity.y = directionY * SPEED
+		velocity.x = directionX * SPEED
 	else:
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 # Permite que el juego reciba los moviemientos.
@@ -43,7 +44,7 @@ func _physics_process(delta: float) -> void:
 
 func gameOver() -> void:
 	
-		# Si la vida es 0, imprime estas muerto y mantiene el valor a 0.
+	# Si la vida es 0, imprime estas muerto y mantiene el valor a 0.
 	if vida <= 0:
 		queue_free()
 		label.text = "Has muerto!"
@@ -57,5 +58,13 @@ func _on_area_2d_body_entered(body):
 	# Añadimos los cuerpos en un grupo juntos y llamamos al grupo.
 	if body.is_in_group("Spike"):#or body.name == "Spike_02":
 		vida -= 2
-	
+		
 	print(vida)
+	
+func escogerSexo (sexo:String) -> String:
+	
+	if sexo == "Hombre":
+		return "Hombre"
+	elif sexo == "Mujer":
+		return "Mujer"
+	return "Eso no es un género. Introduce otro género."
