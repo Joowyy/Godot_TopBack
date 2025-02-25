@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1xqtudn6qxj7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcljq"]
+size = Vector2(77.5, 58)
+
+[node name="Spike" type="StaticBody2D" groups=["Spike"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hcljq")

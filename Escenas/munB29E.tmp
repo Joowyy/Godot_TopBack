@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://brbl4xk6pm7g8"]
+
+[ext_resource type="PackedScene" uid="uid://cebwtxwyfwsnl" path="res://Escenas/Jugador.tscn" id="1_m23b2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v750c"]
+size = Vector2(23.2601, 129.83)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2c6vc"]
+a = Vector2(4.7628, -72.6241)
+b = Vector2(-0.956548, 68.9929)
+
+[sub_resource type="SystemFont" id="SystemFont_4h258"]
+msdf_pixel_range = 10
+msdf_size = 43
+
+[sub_resource type="LabelSettings" id="LabelSettings_5w2b8"]
+font = SubResource("SystemFont_4h258")
+font_size = 8
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Suelo" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Suelo"]
+position = Vector2(574.799, 442)
+scale = Vector2(50.1805, 0.550781)
+shape = SubResource("RectangleShape2D_v750c")
+
+[node name="Rampa" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rampa"]
+position = Vector2(462, 401)
+scale = Vector2(50.1805, 0.550781)
+shape = SubResource("SegmentShape2D_2c6vc")
+
+[node name="Jugador" type="Node" parent="."]
+
+[node name="CharacterBody2D" parent="Jugador" instance=ExtResource("1_m23b2")]
+position = Vector2(119, 266)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 33.0
+offset_right = 138.0
+offset_bottom = 61.0
+scale = Vector2(6.2, 4.44)
+text = "Hola gente!"
+label_settings = SubResource("LabelSettings_5w2b8")

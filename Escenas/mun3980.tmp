@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cebwtxwyfwsnl" path="res://Escenas/Jugador.tscn" id="1_m23b2"]
 [ext_resource type="PackedScene" uid="uid://b1xqtudn6qxj7" path="res://Escenas/Spike.tscn" id="2_b4ynx"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v750c"]
+size = Vector2(23.2601, 129.83)
+
 [sub_resource type="SystemFont" id="SystemFont_4h258"]
 msdf_pixel_range = 10
 msdf_size = 43
@@ -11,19 +14,7 @@ msdf_size = 43
 font = SubResource("SystemFont_4h258")
 font_size = 8
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v750c"]
-size = Vector2(23.2601, 129.83)
-
 [node name="Node2D" type="Node2D"]
-
-[node name="Label" type="Label" parent="."]
-offset_left = 470.0
-offset_top = 115.0
-offset_right = 515.0
-offset_bottom = 143.0
-scale = Vector2(6.2, 4.44)
-text = "Contador"
-label_settings = SubResource("LabelSettings_5w2b8")
 
 [node name="Suelo" type="StaticBody2D" parent="."]
 
@@ -35,14 +26,23 @@ shape = SubResource("RectangleShape2D_v750c")
 [node name="Jugador" type="Node" parent="."]
 
 [node name="CharacterBody2D" parent="Jugador" instance=ExtResource("1_m23b2")]
-position = Vector2(81, 306)
+position = Vector2(121, 262)
 
-[node name="Spikes" type="Node" parent="." groups=["Spike"]]
+[node name="Label" type="Label" parent="."]
+offset_left = 470.0
+offset_top = 115.0
+offset_right = 515.0
+offset_bottom = 143.0
+scale = Vector2(6.2, 4.44)
+text = "Contador"
+label_settings = SubResource("LabelSettings_5w2b8")
+
+[node name="Spikes" type="Node" parent="."]
 
 [node name="Spike_01" parent="Spikes" instance=ExtResource("2_b4ynx")]
-position = Vector2(661, 409)
-scale = Vector2(0.200002, 0.6)
+position = Vector2(700, 403)
+scale = Vector2(0.480002, 0.6)
 
 [node name="Spike_02" parent="Spikes" instance=ExtResource("2_b4ynx")]
-position = Vector2(389, 404)
-scale = Vector2(0.319999, 0.64)
+position = Vector2(334, 403)
+scale = Vector2(0.520001, 0.64)
