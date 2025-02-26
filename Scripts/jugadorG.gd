@@ -10,7 +10,7 @@ const JUMP_VELOCITY:float = -300.0
 
 # Agregamos la velocidad en nuestro personaje
 var gravedad:float = 0.0
-var coins:int = 0
+var points:int = 0
 var vida:int = 15
 var daño:int = 3
 var canAtaque:bool = true
@@ -21,6 +21,9 @@ var enemigoCollision:bool = false
 
 # Comprueba constantemente 60 veces por segundo
 func _physics_process(delta: float) -> void:
+	
+	$CanvasLayer/Vida.text = "Vida: " + str(vida)
+	$CanvasLayer/EnemigosMuertos.text = "Puntos: " + str(points)
 	
 	# Si no estas en el piso, aplica la gravedad
 	if not is_on_floor():
@@ -91,6 +94,8 @@ func AtaqueJugador (enemigo, daño) -> void:
 	
 	if canAtaque:
 		enemigo.vida -= daño
+		if enemigo.vida <= 0:
+			points += 1
 		$Timer.start()
 		canAtaque = false
 	
