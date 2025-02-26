@@ -10,8 +10,11 @@ size = Vector2(127, 127)
 radius = 89.0
 height = 178.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemigo"]]
 script = ExtResource("1_ild3o")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -0.5)
@@ -25,4 +28,5 @@ texture = ExtResource("1_n6rrh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_8krvb")
 
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

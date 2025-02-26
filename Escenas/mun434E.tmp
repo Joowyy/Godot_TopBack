@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://x5775aqc7a07"]
+
+[ext_resource type="PackedScene" uid="uid://cebwtxwyfwsnl" path="res://Escenas/Jugador.tscn" id="1_px3de"]
+[ext_resource type="PackedScene" uid="uid://uydun48v1l5k" path="res://Escenas/Enemigo.tscn" id="2_mjoy3"]
+[ext_resource type="PackedScene" uid="uid://b1xqtudn6qxj7" path="res://Escenas/Spike.tscn" id="3_8ekav"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie0dw"]
+size = Vector2(23.4434, 21.1765)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(66, 42)
+scale = Vector2(4.24, 3.4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(71.2264, 114.706)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ie0dw")
+
+[node name="Personaje" type="Node" parent="."]
+
+[node name="Jugador" parent="Personaje" instance=ExtResource("1_px3de")]
+position = Vector2(368, 247)
+
+[node name="Enemigos" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemigos" instance=ExtResource("2_mjoy3")]
+position = Vector2(672, 177)
+
+[node name="Spikes" type="Node" parent="."]
+
+[node name="Spike" parent="Spikes" instance=ExtResource("3_8ekav")]
+position = Vector2(948, 440)
+
+[node name="Spike2" parent="Spikes" instance=ExtResource("3_8ekav")]
+position = Vector2(282, 94)
+
+[node name="Spike3" parent="Spikes" instance=ExtResource("3_8ekav")]
+position = Vector2(194, 443)
+scale = Vector2(3.11311, 1.44)

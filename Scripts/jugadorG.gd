@@ -1,9 +1,8 @@
 extends CharacterBody2D
 
-<<<<<<< HEAD
 # Accedemos a la ruta del padre de Label, en este caso Node2D.
 # Cada "../" es una carpeta hacia atras. Luego indicamos el nombre.
-@onready var label:Label = $"../../Label"
+# @onready var label:Label = $"../../Label"
 
 # Velocidad y salto del personaje
 const SPEED:float = 300.0
@@ -12,10 +11,13 @@ const JUMP_VELOCITY:float = -300.0
 # Agregamos la velocidad en nuestro personaje
 var gravedad:float = 0.0
 var coins:int = 0
-var vida:int = 10
+var vida:int = 15
+var daño:int = 3
+var canAtaque:bool = true
 
-func _ready():
-	print(vida)
+# Variables enemigo
+var enemigo = null
+var enemigoCollision:bool = false
 
 # Comprueba constantemente 60 veces por segundo
 func _physics_process(delta: float) -> void:
@@ -43,12 +45,17 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	gameOver()
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		if enemigo != null:
+			AtaqueJugador(enemigo, daño)
+
 func gameOver() -> void:
 	
 	# Si la vida es 0, imprime estas muerto y mantiene el valor a 0.
 	if vida <= 0:
 		queue_free()
-		label.text = "Has muerto!"
+		print("Has muerto!")
 
 # Usamos una señal del Inspector y apartado señales.
 # Esta funcion indica que cuando toquemos un cuerpo ocurra algo.
@@ -59,8 +66,18 @@ func _on_area_2d_body_entered(body):
 	# Añadimos los cuerpos en un grupo juntos y llamamos al grupo.
 	if body.is_in_group("Spike"):#or body.name == "Spike_02":
 		vida -= 2
+
+	if body.is_in_group("Enemigo"):
+		enemigoCollision = true
+		enemigo = body
+
+# Como entra un body, tambien sale.
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Enemigo"):
+		enemigoCollision = false
 		
-	print(vida)
+	print(enemigoCollision)
+
 	
 func escogerSexo (sexo:String) -> String:
 	
@@ -69,30 +86,13 @@ func escogerSexo (sexo:String) -> String:
 	elif sexo == "Mujer":
 		return "Mujer"
 	return "Eso no es un género. Introduce otro género."
-=======
-# Velocidad y salto del personaje
-const SPEED:float = 200.0
-const JUMP_VELOCITY:float = -300.0
-
-# Agregamos la velocidad en nuestro personaje
-var gravedad:float = 700.0
-
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravedad * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
-	move_and_slide()
->>>>>>> 77a1f52 (Rampa agregada)
+	
+func AtaqueJugador (enemigo, daño) -> void:
+	
+	if canAtaque:
+		enemigo.vida -= daño
+		$Timer.start()
+		canAtaque = false
+	
+func _on_timer_timeout() -> void:
+	canAtaque = true
